@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct MatjaktApp: App {
+    
+    @StateObject var shoppingListViewModel = ShoppingListViewModel()
+    
     var body: some Scene {
         WindowGroup {
-            SearchView()
+            MainTabView()
+                .environmentObject(shoppingListViewModel)
         }
     }
 }

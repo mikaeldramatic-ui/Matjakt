@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ShoppingListView: View {
     
-    @StateObject var viewModel = ShoppingListViewModel()
+    @EnvironmentObject var viewModel: ShoppingListViewModel
     
     var body: some View {
         

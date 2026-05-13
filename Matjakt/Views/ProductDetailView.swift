@@ -10,6 +10,7 @@ import SwiftUI
 struct ProductDetailView: View {
     
     let product: Product
+    @EnvironmentObject var shoppingListViewModel: ShoppingListViewModel
     
     var body: some View {
         
@@ -30,12 +31,26 @@ struct ProductDetailView: View {
                     }
                 }
             }
+            
+            Button("Lägg till i inköpslista") {
+                shoppingListViewModel.addProduct(product)
+            }
         }
         .navigationTitle(product.name)
     }
 }
 
 
-//#Preview {
-  //  ProductDetailView()
-//}
+#Preview {
+  ProductDetailView(
+    product: Product(
+        id: UUID(),
+        name: "Pepsi",
+        ean: "123",
+        brand: "Pepsi",
+        imageURL: nil,
+        prices: []
+    )
+  )
+  .environmentObject(ShoppingListViewModel())
+}
