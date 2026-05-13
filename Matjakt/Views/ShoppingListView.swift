@@ -38,4 +38,5 @@ struct ShoppingListView: View {
 
 #Preview {
     ShoppingListView()
+        .environmentObject(ShoppingListViewModel())
 }

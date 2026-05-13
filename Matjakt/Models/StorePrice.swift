@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct StorePrice: Identifiable {
-    let id = UUID()
+struct StorePrice: Identifiable, Codable {
+    var id = UUID()
     let store: Store
     let price: Double
 }

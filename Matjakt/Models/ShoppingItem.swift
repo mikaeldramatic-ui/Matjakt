@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct ShoppingItem: Identifiable {
+struct ShoppingItem: Identifiable, Codable {
     
-    let id = UUID()
+    var id = UUID()
     let product: Product
     var isChecked: Bool = false
 }
