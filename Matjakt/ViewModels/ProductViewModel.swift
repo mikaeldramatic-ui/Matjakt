@@ -16,7 +16,7 @@ class ProductViewModel: ObservableObject {
             Product(
                 id: UUID(),
                 name: "Pepsi Max 1.5L",
-                ean: "5449000131805",
+                ean: "9789129752465",
                 brand: "Pepsi",
                 imageURL: nil,
                 prices: [
@@ -38,5 +38,11 @@ class ProductViewModel: ObservableObject {
             $0.name.localizedCaseInsensitiveContains(searchText) ||
             $0.brand.localizedCaseInsensitiveContains(searchText)
         }
+    }
+    
+    func findProduct(by ean: String) -> Product? {
+        
+        return products.first { product in
+            product.ean == ean}
     }
 }

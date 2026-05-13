@@ -17,6 +17,11 @@ struct MainTabView: View {
                     Label("Sök", systemImage: "magnifyingglass")
                 }
             
+            ScannerView()
+                .tabItem {
+                    Label("Scanner", systemImage: "barcode.viewfinder")
+                }
+            
             ShoppingListView()
                 .tabItem {
                     Label("Lista", systemImage: "cart")
