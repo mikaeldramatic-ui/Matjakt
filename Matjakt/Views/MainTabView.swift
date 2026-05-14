@@ -26,6 +26,13 @@ struct MainTabView: View {
                 .tabItem {
                     Label("Lista", systemImage: "cart")
                 }
+            HomeView()
+                .tabItem {
+                    Label("Hem", systemImage: "house")
+
+                }
         }
     }
 }
+
+
