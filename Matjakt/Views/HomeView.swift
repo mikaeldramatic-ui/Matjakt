@@ -24,17 +24,20 @@ struct HomeView: View {
                             
                             WeeklyAdCard(
                                 storeName: "Willys Alingsås",
-                                imageName: "cart.fill"
+                                imageName: "cart.fill" ,
+                                weeklyAdURL: "https://www.willys.se/erbjudanden/butik"
                             )
                             
                             WeeklyAdCard(
-                                storeName: "ICA MAxi Alingsås",
-                                imageName: "basket.fill"
+                                storeName: "ICA Maxi Alingsås",
+                                imageName: "basket.fill",
+                                weeklyAdURL: "https://www.ica.se/erbjudanden/maxi-ica-stormarknad-alingsas-1003647/"
                             )
                             
                             WeeklyAdCard(
                                 storeName: "Coop Alingsås",
-                                imageName: "bag.fill"
+                                imageName: "bag.fill",
+                                weeklyAdURL: "https://www.coop.se/butiker-erbjudanden/coop/coop-alingsas/"
                             )
                         }
                         .padding(.horizontal)
