@@ -11,6 +11,9 @@ struct WeeklyAdCard: View {
     
     let storeName: String
     let imageName: String
+    let weeklyAdURL: String
+    
+    @State private var showSafari = false
     
     var body: some View {
         
@@ -26,7 +29,7 @@ struct WeeklyAdCard: View {
                 .padding(.horizontal)
             
             Button("Öppna veckoblad") {
-                
+                showSafari = true
             }
             .buttonStyle(.borderedProminent)
             .padding(.horizontal)
@@ -35,12 +38,21 @@ struct WeeklyAdCard: View {
         .frame(width: 220)
         .background(Color(.systemGray6))
         .clipShape(RoundedRectangle(cornerRadius: 20))
+        
+        .sheet(isPresented: $showSafari) {
+            
+            if let url = URL(string: weeklyAdURL) {
+                
+                SafariView(url: url)
+            }
+        }
     }
 }
 
 #Preview {
     WeeklyAdCard(
         storeName: "Willys",
-        imageName: "cart.fill"
+        imageName: "cart.fill",
+        weeklyAdURL: "https://www.willys.se/erbjudanden/butik"
     )
 }
