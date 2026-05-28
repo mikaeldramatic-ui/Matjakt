@@ -25,23 +25,15 @@ struct HomeView: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 16) {
                             
-                            WeeklyAdCard(
-                                storeName: "Willys Alingsås",
-                                imageName: "cart.fill" ,
-                                weeklyAdURL: "https://www.willys.se/erbjudanden/butik"
-                            )
+                            ForEach(StoreLocation.mockStores) { store in
                             
-                            WeeklyAdCard(
-                                storeName: "ICA Maxi Alingsås",
-                                imageName: "basket.fill",
-                                weeklyAdURL: "https://www.ica.se/erbjudanden/maxi-ica-stormarknad-alingsas-1003647/"
-                            )
-                            
-                            WeeklyAdCard(
-                                storeName: "Coop Alingsås",
-                                imageName: "bag.fill",
-                                weeklyAdURL: "https://www.coop.se/butiker-erbjudanden/coop/coop-alingsas/"
-                            )
+                                WeeklyAdCard(
+                                    storeName: store.storeName,
+                                    imageName: "cart.fill",
+                                    weeklyAdURL: store.weeklyAdURL
+                                )
+                                
+                            }
                         }
                         .padding(.horizontal)
                     }
