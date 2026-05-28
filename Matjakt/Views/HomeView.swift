@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct HomeView: View {
+    
+    @StateObject private var locationManager = LocationManager()
+    
     var body: some View {
 
         NavigationStack {
@@ -46,6 +49,12 @@ struct HomeView: View {
                 .padding(.top)
             }
             .navigationTitle("Matjakt")
+            .onAppear {
+                
+                locationManager.requestLocationPermission()
+                
+                locationManager.requestLocation()
+            }
         }
     }
 }
