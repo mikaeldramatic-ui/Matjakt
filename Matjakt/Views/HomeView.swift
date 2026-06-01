@@ -11,6 +11,37 @@ struct HomeView: View {
     
     @StateObject private var locationManager = LocationManager()
     
+    private var nearbyStores: [StoreLocation] {
+        
+        guard let userLocation = locationManager.userLocation else {
+            return Array (StoreLocation.mockStores.prefix(3))
+        }
+        
+        return Array (
+            StoreLocation.mockStores
+                .sorted {
+            $0.distance(from: userLocation) <
+            $1.distance(from: userLocation)
+        }
+                .prefix(3)
+            )
+    }
+    
+    private func distanceText(for store: StoreLocation) -> String {
+        
+        guard let userLocation = locationManager.userLocation else {
+            return "Okänd"
+        }
+        
+        let distance = store.distance(from: userLocation)
+        
+        if distance < 1000 {
+            return "\(Int(distance)) m bort"
+        } else {
+            return String(format: "%.1f km bort", distance / 1000)
+        }
+    }
+    
     var body: some View {
 
         NavigationStack {
@@ -25,23 +56,16 @@ struct HomeView: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 16) {
                             
-                            WeeklyAdCard(
-                                storeName: "Willys Alingsås",
-                                imageName: "cart.fill" ,
-                                weeklyAdURL: "https://www.willys.se/erbjudanden/butik"
-                            )
+                            ForEach(nearbyStores) { store in
                             
-                            WeeklyAdCard(
-                                storeName: "ICA Maxi Alingsås",
-                                imageName: "basket.fill",
-                                weeklyAdURL: "https://www.ica.se/erbjudanden/maxi-ica-stormarknad-alingsas-1003647/"
-                            )
-                            
-                            WeeklyAdCard(
-                                storeName: "Coop Alingsås",
-                                imageName: "bag.fill",
-                                weeklyAdURL: "https://www.coop.se/butiker-erbjudanden/coop/coop-alingsas/"
-                            )
+                                WeeklyAdCard(
+                                    storeName: store.storeName,
+                                    imageName: "cart.fill",
+                                    weeklyAdURL: store.weeklyAdURL,
+                                    distanceText: distanceText(for: store)
+                                )
+                                
+                            }
                         }
                         .padding(.horizontal)
                     }

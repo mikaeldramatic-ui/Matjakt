@@ -11,6 +11,8 @@ import Combine
 
 class LocationManager: NSObject,ObservableObject, CLLocationManagerDelegate {
     
+    @Published var userLocation: CLLocation?
+    
     private let manager = CLLocationManager()
     
     override init() {
@@ -36,9 +38,7 @@ class LocationManager: NSObject,ObservableObject, CLLocationManagerDelegate {
             return
         }
         
-        print("Latitude:", location.coordinate.latitude)
-        print("Longitude:", location.coordinate.longitude)
-        
+        userLocation = location
     }
     
     func locationManager(_ maanger: CLLocationManager,
