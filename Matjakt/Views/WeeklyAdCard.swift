@@ -12,6 +12,7 @@ struct WeeklyAdCard: View {
     let storeName: String
     let imageName: String
     let weeklyAdURL: String
+    let distanceText: String
     
     @State private var showSafari = false
     
@@ -27,6 +28,10 @@ struct WeeklyAdCard: View {
             Text(storeName)
                 .font(.headline)
                 .padding(.horizontal)
+            
+            Text(distanceText)
+                .font(.caption)
+                .foregroundStyle(.secondary)
             
             Button("Öppna veckoblad") {
                 showSafari = true
@@ -53,6 +58,7 @@ struct WeeklyAdCard: View {
     WeeklyAdCard(
         storeName: "Willys",
         imageName: "cart.fill",
-        weeklyAdURL: "https://www.willys.se/erbjudanden/butik"
+        weeklyAdURL: "https://www.willys.se/erbjudanden/butik",
+        distanceText: "350 m bort"
     )
 }

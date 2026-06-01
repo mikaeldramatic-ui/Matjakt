@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 struct StoreLocation: Identifiable {
     
@@ -14,6 +15,17 @@ struct StoreLocation: Identifiable {
     let latitude: Double
     let longitude: Double
     let weeklyAdURL: String
+    
+    func distance(from userLocation: CLLocation) -> Double {
+     
+        let storeLocation = CLLocation(
+            latitude: latitude,
+            longitude: longitude
+        )
+        
+        return storeLocation.distance(from: userLocation)
+        
+    }
 }
 
 extension StoreLocation {
