@@ -10,6 +10,8 @@ import Combine
 
 class ShoppingListViewModel: ObservableObject {
     
+    
+    
     @Published var items: [ShoppingItem] = []
     
     private let saveKey = "shopping_items"
@@ -17,9 +19,12 @@ class ShoppingListViewModel: ObservableObject {
         loadItems()
     }
     
-    func addProduct(_ product: Product) {
+    func addProduct(_ product: Product, store: Store) {
         
-        let item = ShoppingItem(product: product)
+        let item = ShoppingItem(
+            product: product,
+            store: store
+        )
         items.append(item)
         
         saveItems()
@@ -36,6 +41,13 @@ class ShoppingListViewModel: ObservableObject {
     
     func removeItem(at offsets: IndexSet) {
         items.remove(atOffsets: offsets)
+        
+        saveItems()
+    }
+    
+    func removeItem(_ item: ShoppingItem) {
+        
+        items.removeAll { $0.id == item.id }
         
         saveItems()
     }
