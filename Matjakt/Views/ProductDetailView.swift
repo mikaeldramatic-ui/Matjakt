@@ -22,18 +22,23 @@ struct ProductDetailView: View {
                     
                     HStack {
                         
-                        Text(price.store.rawValue)
-                        
+                        VStack(alignment: .leading) {
+                            
+                            Text(price.store.rawValue)
+                            
+                            Text("\(price.price, specifier: "%.2f") kr")
+                                .fontWeight(.semibold)
+                        }
                         Spacer()
                         
-                        Text("\(price.price, specifier: "%.2f") kr")
-                            .fontWeight(.semibold)
+                        Button("Lägg till") {
+                            shoppingListViewModel.addProduct(
+                                product,
+                                store: price.store
+                            )
+                        }
                     }
                 }
-            }
-            
-            Button("Lägg till i inköpslista") {
-                shoppingListViewModel.addProduct(product)
             }
         }
         .navigationTitle(product.name)
