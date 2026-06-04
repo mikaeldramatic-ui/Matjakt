@@ -12,6 +12,7 @@ struct ShoppingItem: Identifiable, Codable {
     var id = UUID()
     let product: Product
     let store: Store
+    let selectedPrice: Double
     
     var isChecked: Bool = false
 }

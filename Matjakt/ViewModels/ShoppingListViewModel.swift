@@ -19,11 +19,12 @@ class ShoppingListViewModel: ObservableObject {
         loadItems()
     }
     
-    func addProduct(_ product: Product, store: Store) {
+    func addProduct(_ product: Product, store: Store, selectedPrice: Double) {
         
         let item = ShoppingItem(
             product: product,
-            store: store
+            store: store,
+            selectedPrice: selectedPrice
         )
         items.append(item)
         

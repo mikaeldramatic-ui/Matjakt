@@ -34,7 +34,8 @@ struct ProductDetailView: View {
                         Button("Lägg till") {
                             shoppingListViewModel.addProduct(
                                 product,
-                                store: price.store
+                                store: price.store,
+                                selectedPrice: price.price
                             )
                         }
                     }
