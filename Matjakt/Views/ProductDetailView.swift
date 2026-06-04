@@ -12,10 +12,14 @@ struct ProductDetailView: View {
     let product: Product
     @EnvironmentObject var shoppingListViewModel: ShoppingListViewModel
     
+    private var cheapestPrice: Double? {
+        product.prices.map(\.price).min()
+    }
+    
     var body: some View {
         
         List {
-            
+    
             Section("Butikspriser") {
                 
                 ForEach(product.prices) { price in
@@ -24,7 +28,14 @@ struct ProductDetailView: View {
                         
                         VStack(alignment: .leading) {
                             
+                            HStack {
+                            
                             Text(price.store.rawValue)
+                            
+                            if price.price == cheapestPrice {
+                                Image(systemName: "crown.fill")
+                            }
+                        }
                             
                             Text("\(price.price, specifier: "%.2f") kr")
                                 .fontWeight(.semibold)
