@@ -18,18 +18,19 @@ struct WeeklyAdCard: View {
     
     var body: some View {
         
-        VStack (alignment: .leading, spacing: 12) {
+        VStack (spacing: 12) {
             
-            Image(systemName: imageName)
-                .font(.system(size: 40))
-                .frame(maxWidth: .infinity)
+            Image(imageName)
+                .resizable()
+                .scaledToFit()
+                .frame(maxWidth: 140 ,maxHeight: 60)
                 .padding(.top)
             
             Text(storeName)
                 .font(.headline)
-                .padding(.horizontal)
+                .multilineTextAlignment(.center)
             
-            Text(distanceText)
+            Label(distanceText, systemImage: "location.fill")
                 .font(.caption)
                 .foregroundStyle(.secondary)
             
@@ -40,8 +41,8 @@ struct WeeklyAdCard: View {
             .padding(.horizontal)
             .padding(.bottom)
         }
-        .frame(width: 220)
-        .background(Color(.systemGray6))
+        .frame(width: 230)
+        .background(.thinMaterial)
         .clipShape(RoundedRectangle(cornerRadius: 20))
         
         .sheet(isPresented: $showSafari) {

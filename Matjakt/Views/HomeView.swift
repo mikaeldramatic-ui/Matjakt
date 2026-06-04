@@ -60,7 +60,7 @@ struct HomeView: View {
                             
                                 WeeklyAdCard(
                                     storeName: store.storeName,
-                                    imageName: "cart.fill",
+                                    imageName: store.logoName,
                                     weeklyAdURL: store.weeklyAdURL,
                                     distanceText: distanceText(for: store)
                                 )
