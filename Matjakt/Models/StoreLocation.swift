@@ -11,10 +11,26 @@ import CoreLocation
 struct StoreLocation: Identifiable {
     
     let id = UUID()
+    let store: Store
     let storeName: String
     let latitude: Double
     let longitude: Double
     let weeklyAdURL: String
+    
+    var logoName: String {
+        
+        switch store {
+        
+        case .ica:
+            return "ica_logo"
+            
+        case .coop:
+            return "coop_logo"
+            
+        case .willys:
+            return "willys_logo"
+        }
+    }
     
     func distance(from userLocation: CLLocation) -> Double {
      
@@ -33,6 +49,7 @@ extension StoreLocation {
     static let mockStores: [StoreLocation] = [
         
         StoreLocation(
+            store: .willys,
             storeName: "Willys Alingsås",
             latitude: 57.9308,
             longitude: 12.5331,
@@ -40,6 +57,7 @@ extension StoreLocation {
         ),
         
         StoreLocation(
+            store: .ica,
             storeName: "ICA Maxi Alingsås",
             latitude: 57.9260,
             longitude: 12.5338,
@@ -47,6 +65,7 @@ extension StoreLocation {
         ),
         
         StoreLocation(
+            store: .coop,
             storeName: "Coop Alingsås",
             latitude: 57.9215,
             longitude: 12.5360,
