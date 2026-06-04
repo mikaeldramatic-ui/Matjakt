@@ -15,6 +15,14 @@ struct ShoppingListView: View {
         Dictionary(grouping: viewModel.items) { $0.store }
     }
     
+    private func totalPrice(for items: [ShoppingItem]) -> Double {
+        items.reduce(0) { $0 + $1.selectedPrice }
+    }
+    
+    private var grandTotal: Double {
+        viewModel.items.reduce(0) { $0 + $1.selectedPrice}
+    }
+    
     var body: some View {
         
         NavigationStack {
@@ -34,6 +42,11 @@ struct ShoppingListView: View {
                                     Image(systemName: item.isChecked ? "checkmark.circle.fill" : "circle")
                                     
                                     Text(item.product.name)
+                                    
+                                    Spacer()
+                                    
+                                    Text("\(item.selectedPrice, specifier: "%.2f") kr")
+                                        .fontWeight(.semibold)
                                 }
                                 .onTapGesture {
                                     viewModel.toggleItem(item)
@@ -47,8 +60,33 @@ struct ShoppingListView: View {
                                     }
                                 }
                             }
-                            //.onDelete(perform: viewModel.removeItem)
+                            
+                            HStack {
+                                
+                                Text("Totalt")
+                                    .fontWeight(.bold)
+                                
+                                Spacer()
+                                
+                                Text("\(totalPrice(for: items), specifier: "%.2f") kr")
+                                    .fontWeight(.bold)
+                            }
                         }
+                    }
+                }
+                
+                Section {
+                    
+                    HStack {
+                        
+                        Text("Totalt inköp")
+                            .font(.headline)
+                        
+                        Spacer()
+                        
+                        Text("\(grandTotal, specifier: "%.2f") kr")
+                            .font(.headline)
+                            .fontWeight(.bold)
                     }
                 }
             }
