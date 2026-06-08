@@ -10,7 +10,9 @@ import SwiftUI
 struct ProductDetailView: View {
     
     let product: Product
+    
     @EnvironmentObject var shoppingListViewModel: ShoppingListViewModel
+    @EnvironmentObject var favoriteViewModel: FavoriteViewModel
     
     private var cheapestPrice: Double? {
         product.prices.map(\.price).min()
@@ -19,7 +21,7 @@ struct ProductDetailView: View {
     var body: some View {
         
         List {
-    
+            
             Section("Butikspriser") {
                 
                 ForEach(product.prices) { price in
@@ -29,15 +31,15 @@ struct ProductDetailView: View {
                         VStack(alignment: .leading) {
                             
                             HStack {
-                            
-                            Text(price.store.rawValue)
+                                
+                                Text(price.store.rawValue)
                                     .font(AppFonts.heading)
-                            
-                            if price.price == cheapestPrice {
-                                Image(systemName: "crown.fill")
-                                    .foregroundStyle(AppColors.primary)
+                                
+                                if price.price == cheapestPrice {
+                                    Image(systemName: "crown.fill")
+                                        .foregroundStyle(AppColors.primary)
+                                }
                             }
-                        }
                             
                             Text("\(price.price, specifier: "%.2f") kr")
                                 .font(AppFonts.body)
@@ -57,21 +59,37 @@ struct ProductDetailView: View {
                 }
             }
         }
-        .navigationTitle(product.name)
+            .toolbar {
+                
+                Button {
+                    
+                    favoriteViewModel.toggleFavorite(product)
+                    
+                } label: {
+                    
+                    Image(
+                        systemName:
+                            favoriteViewModel.isFavorite(product)
+                          ? "heart.fill"
+                          : "heart"
+                    )
+                }
+            }
+            .navigationTitle(product.name)
+        }
     }
-}
 
-
-#Preview {
-  ProductDetailView(
-    product: Product(
-        id: UUID(),
-        name: "Pepsi",
-        ean: "123",
-        brand: "Pepsi",
-        imageURL: nil,
-        prices: []
-    )
-  )
-  .environmentObject(ShoppingListViewModel())
-}
+    #Preview {
+        ProductDetailView(
+            product: Product(
+                id: UUID(),
+                name: "Pepsi",
+                ean: "123",
+                brand: "Pepsi",
+                imageURL: nil,
+                prices: []
+            )
+        )
+        .environmentObject(ShoppingListViewModel())
+        .environmentObject(FavoriteViewModel())
+    }
