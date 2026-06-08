@@ -18,20 +18,20 @@ struct WeeklyAdCard: View {
     
     var body: some View {
         
-        VStack (spacing: 12) {
+        VStack (spacing: AppSpacing.medium) {
             
             Image(imageName)
                 .resizable()
                 .scaledToFit()
-                .frame(maxWidth: 140 ,maxHeight: 60)
+                .frame(maxWidth: AppSizes.logoWidth ,maxHeight: AppSizes.logoHeight)
                 .padding(.top)
             
             Text(storeName)
-                .font(.headline)
+                .font(AppFonts.heading)
                 .multilineTextAlignment(.center)
             
             Label(distanceText, systemImage: "location.fill")
-                .font(.caption)
+                .font(AppFonts.caption)
                 .foregroundStyle(.secondary)
             
             Button("Öppna veckoblad") {
@@ -41,9 +41,13 @@ struct WeeklyAdCard: View {
             .padding(.horizontal)
             .padding(.bottom)
         }
-        .frame(width: 230)
+        .frame(width: AppSizes.cardWidth)
         .background(.thinMaterial)
-        .clipShape(RoundedRectangle(cornerRadius: 20))
+        .clipShape(
+            RoundedRectangle(
+                cornerRadius: AppCornerRadius.card
+            )
+        )
         
         .sheet(isPresented: $showSafari) {
             
