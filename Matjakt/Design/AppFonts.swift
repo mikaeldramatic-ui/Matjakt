@@ -13,5 +13,6 @@ enum AppFonts {
     static let heading = Font.headline
     static let body = Font.body
     static let caption = Font.caption
+    static let sectionTitle = Font.headline
     
 }
