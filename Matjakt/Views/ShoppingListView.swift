@@ -80,12 +80,12 @@ struct ShoppingListView: View {
                     HStack {
                         
                         Text("Totalt inköp")
-                            .font(.headline)
+                            .font(AppFonts.heading)
                         
                         Spacer()
                         
                         Text("\(grandTotal, specifier: "%.2f") kr")
-                            .font(.headline)
+                            .font(AppFonts.heading)
                             .fontWeight(.bold)
                     }
                 }
