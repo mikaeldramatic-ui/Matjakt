@@ -11,11 +11,13 @@ import SwiftUI
 struct MatjaktApp: App {
     
     @StateObject var shoppingListViewModel = ShoppingListViewModel()
+    @StateObject var favoriteViewModel = FavoriteViewModel()
     
     var body: some Scene {
         WindowGroup {
             MainTabView()
                 .environmentObject(shoppingListViewModel)
+                .environmentObject(favoriteViewModel)
         }
     }
 }
