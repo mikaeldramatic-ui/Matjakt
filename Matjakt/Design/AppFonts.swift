@@ -10,9 +10,13 @@ import SwiftUI
 enum AppFonts {
     
     static let title = Font.largeTitle
+    static let sectionTitle = Font.title2
+    
     static let heading = Font.headline
+    
     static let body = Font.body
     static let caption = Font.caption
-    static let sectionTitle = Font.headline
+    
+    
     
 }

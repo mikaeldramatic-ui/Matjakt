@@ -46,15 +46,15 @@ struct HomeView: View {
 
         NavigationStack {
             ScrollView {
-                VStack(alignment: .leading, spacing: 24) {
+                VStack(alignment: .leading, spacing: AppSpacing.large) {
                     
                     Text("Veckans erbjudanden")
-                        .font(.title2)
+                        .font(AppFonts.sectionTitle)
                         .fontWeight(.bold)
                         .padding(.horizontal)
                     
                     ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 16) {
+                        HStack(spacing: AppSpacing.medium) {
                             
                             ForEach(nearbyStores) { store in
                             

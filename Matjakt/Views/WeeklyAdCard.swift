@@ -38,6 +38,7 @@ struct WeeklyAdCard: View {
                 showSafari = true
             }
             .buttonStyle(.borderedProminent)
+            .tint(AppColors.primary)
             .padding(.horizontal)
             .padding(.bottom)
         }

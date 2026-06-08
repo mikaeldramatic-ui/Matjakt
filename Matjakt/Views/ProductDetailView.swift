@@ -31,13 +31,16 @@ struct ProductDetailView: View {
                             HStack {
                             
                             Text(price.store.rawValue)
+                                    .font(AppFonts.heading)
                             
                             if price.price == cheapestPrice {
                                 Image(systemName: "crown.fill")
+                                    .foregroundStyle(AppColors.primary)
                             }
                         }
                             
                             Text("\(price.price, specifier: "%.2f") kr")
+                                .font(AppFonts.body)
                                 .fontWeight(.semibold)
                         }
                         Spacer()
@@ -49,6 +52,7 @@ struct ProductDetailView: View {
                                 selectedPrice: price.price
                             )
                         }
+                        .tint(AppColors.primary)
                     }
                 }
             }
