@@ -11,10 +11,15 @@ import CoreLocation
 struct StoreLocation: Identifiable {
     
     let id = UUID()
+    
     let store: Store
+    
     let storeName: String
+    let city: String
+    
     let latitude: Double
     let longitude: Double
+    
     let weeklyAdURL: String
     
     var logoName: String {
@@ -44,32 +49,4 @@ struct StoreLocation: Identifiable {
     }
 }
 
-extension StoreLocation {
-    
-    static let mockStores: [StoreLocation] = [
-        
-        StoreLocation(
-            store: .willys,
-            storeName: "Willys Alingsås",
-            latitude: 57.9308,
-            longitude: 12.5331,
-            weeklyAdURL: "https://www.willys.se/erbjudanden/butik"
-        ),
-        
-        StoreLocation(
-            store: .ica,
-            storeName: "ICA Maxi Alingsås",
-            latitude: 57.9260,
-            longitude: 12.5338,
-            weeklyAdURL: "https://www.ica.se/erbjudanden/maxi-ica-stormarknad-alingsas-1003647/"
-        ),
-        
-        StoreLocation(
-            store: .coop,
-            storeName: "Coop Alingsås",
-            latitude: 57.9215,
-            longitude: 12.5360,
-            weeklyAdURL: "https://www.coop.se/butiker-erbjudanden/coop/coop-alingsas/"
-        )
-    ]
-}
+
