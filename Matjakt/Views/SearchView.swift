@@ -10,36 +10,60 @@ import SwiftUI
 struct SearchView: View {
 
     @StateObject var viewModel = ProductViewModel()
+    @State private var recentSearches = [
+        "Pepsi Max",
+        "Mjölk",
+        "Marabou"
+    ]
     
     var body: some View {
         
         NavigationStack {
             
-            List(viewModel.filteredProducts) { product in
+            if viewModel.searchText.isEmpty {
                 
-                NavigationLink {
-                    ProductDetailView(product: product)
+                List {
                     
-                } label: {
-                    
-                    VStack(alignment: .leading) {
+                    Section("Tidigare sökningar") {
                         
-                        Text(product.name)
-                            .font(.headline)
-                        
-                        Text(product.brand)
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
+                        ForEach(recentSearches, id: \.self) { search in
+                            
+                            Button(search) {
+                                viewModel.searchText = search
+                            }
+                        }
                     }
                 }
+                
+            } else {
+                
+                ScrollView {
+
+                    LazyVStack(spacing: AppSpacing.medium) {
+
+                        ForEach(viewModel.filteredProducts) { product in
+
+                            NavigationLink {
+
+                                ProductDetailView(product: product)
+
+                            } label: {
+
+                                ProductSearchCard(product: product)
+                            }
+                            .buttonStyle(.plain)
+                        }
+                    }
+                    .padding(.horizontal)
+                    .padding(.top, AppSpacing.large)
+                }
             }
+        }
             .navigationTitle("Matjakt")
             .searchable(text: $viewModel.searchText,
                         prompt: "Sök produkt")
         }
       }
-    }
-
 #Preview {
     SearchView()
 }
