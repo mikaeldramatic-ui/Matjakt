@@ -49,6 +49,11 @@ struct WeeklyAdCard: View {
                 cornerRadius: AppCornerRadius.card
             )
         )
+        .shadow(
+            color: .black.opacity(0.08),
+            radius: 4,
+            y: 2
+        )
         
         .sheet(isPresented: $showSafari) {
             
