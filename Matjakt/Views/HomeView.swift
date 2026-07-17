@@ -10,6 +10,7 @@ import SwiftUI
 struct HomeView: View {
     
     @StateObject private var locationManager = LocationManager()
+    @State private var lastUpdated: Date?
     
     private var nearbyStores: [StoreLocation] {
         
@@ -42,11 +43,29 @@ struct HomeView: View {
         }
     }
     
+    private func refreshStores() async {
+        
+        locationManager.requestLocationPermission()
+        locationManager.requestLocation()
+        
+        lastUpdated = Date()
+    }
+    
     var body: some View {
 
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: AppSpacing.large) {
+                    
+                    if let lastUpdated {
+                            Label(
+                                "Senast uppdaterad \(lastUpdated.formatted(date: .omitted,time: .shortened))",
+                                systemImage: "clock.arrow.circlepath"
+                            )
+                            .font(AppFonts.caption)
+                            .foregroundStyle(.secondary)
+                            .padding(.horizontal)
+                        }
                     
                     Text("Veckans erbjudanden")
                         .font(AppFonts.sectionTitle)
@@ -73,11 +92,15 @@ struct HomeView: View {
                 .padding(.top)
             }
             .navigationTitle("Matjakt")
+            
+            .refreshable {
+                await refreshStores()
+            }
+            
             .onAppear {
-                
-                locationManager.requestLocationPermission()
-                
-                locationManager.requestLocation()
+                Task {
+                    await refreshStores()
+                }
             }
         }
     }
