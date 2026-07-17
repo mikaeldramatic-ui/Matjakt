@@ -18,9 +18,42 @@ struct ProductDetailView: View {
         product.prices.map(\.price).min()
     }
     
+    private var productHeader: some View {
+        
+        VStack(spacing: AppSpacing.small) {
+            
+            Image(systemName: "shippingbox.fill")
+                .font(.system(size: 48))
+                .foregroundStyle(AppColors.primary)
+            
+            Text(product.name)
+                .font(AppFonts.heading)
+                .multilineTextAlignment(.center)
+            
+            Text(product.brand)
+                .font(AppFonts.body)
+                .foregroundStyle(AppColors.secondaryText)
+            
+            if let cheapestPrice {
+                
+                Text("Från \(cheapestPrice.formatted(.number.precision(.fractionLength(2)))) kr")
+                    .font(AppFonts.body)
+                    .fontWeight(.semibold)
+                    .foregroundStyle(AppColors.primary)
+            }
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical)
+    }
+    
     var body: some View {
         
         List {
+            
+            Section {
+                
+                productHeader
+            }
             
             Section("Butikspriser") {
                 
@@ -30,10 +63,11 @@ struct ProductDetailView: View {
                         
                         VStack(alignment: .leading) {
                             
-                            HStack {
+                            HStack(spacing: AppSpacing.small) {
                                 
                                 Text(price.store.rawValue)
                                     .font(AppFonts.heading)
+                                    .fontWeight(.semibold)
                                 
                                 if price.price == cheapestPrice {
                                     Image(systemName: "crown.fill")
@@ -54,8 +88,10 @@ struct ProductDetailView: View {
                                 selectedPrice: price.price
                             )
                         }
+                        .buttonStyle(.borderedProminent)
                         .tint(AppColors.primary)
                     }
+                    .padding(.vertical, AppSpacing.small)
                 }
             }
         }
