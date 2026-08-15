@@ -117,15 +117,8 @@ struct ProductDetailView: View {
 
     #Preview {
         ProductDetailView(
-            product: Product(
-                id: UUID(),
-                name: "Pepsi",
-                ean: "123",
-                brand: "Pepsi",
-                imageURL: nil,
-                prices: []
+            product: PreviewData.pepsi
             )
-        )
         .environmentObject(ShoppingListViewModel())
         .environmentObject(FavoriteViewModel())
     }

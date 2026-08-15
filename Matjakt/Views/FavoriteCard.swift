@@ -1,51 +1,61 @@
 //
-//  ProductSearchCard.swift
+//  FavoriteCard.swift
 //  Matjakt
 //
-//  Created by Mikael Engvall on 2026-07-17.
+//  Created by Mikael Engvall on 2026-08-15.
 //
 
 import SwiftUI
 
-struct ProductSearchCard: View {
+struct FavoriteCard: View {
+
+    let item: FavoriteItem
     
-    let product: Product
+    private var cheapestPrice: Double? {
+        item.product.prices.map (\.price).min()
+    }
     
-    var cheapestPrice: Double? {
-        product.prices.map(\.price).min()
+    private var cheapestStore: StorePrice? {
+        item.product.prices.min(by: { $0.price < $1.price})
     }
     
     var body: some View {
         
         HStack(spacing: AppSpacing.medium) {
             
-            Image(systemName: "shippingbox.fill")
+            Image(systemName: "heart.fill")
                 .font(.title2)
                 .foregroundStyle(AppColors.primary)
                 .frame(width: 40)
             
             VStack(alignment: .leading, spacing: AppSpacing.small) {
                 
-                Text(product.name)
-                    .font(AppFonts.body)
+                Text(item.product.name)
+                    .font(AppFonts.caption)
                     .fontWeight(.semibold)
                 
-                Text(product.brand)
+                Text(item.product.brand)
                     .font(AppFonts.caption)
                     .foregroundStyle(AppColors.secondaryText)
                 
-                if let cheapestPrice {
+                if let cheapestPrice,
+                   let cheapestStore {
                     
-                    Text("Från \(cheapestPrice.formatted(.number.precision(.fractionLength(2)))) kr")
+                    Label("Billigast idag", systemImage: "crown.fill")
                         .font(AppFonts.caption)
                         .foregroundStyle(AppColors.primary)
+                    
+                    Text("\(cheapestPrice.formatted(.number.precision(.fractionLength(2)))) kr hos \(cheapestStore.store.rawValue)")
+                        .font(AppFonts.heading)
+                        .fontWeight(.bold)
                 }
             }
             
             Spacer()
             
             Image(systemName: "chevron.right")
-                .foregroundStyle(.secondary)
+                .font(.caption)
+                .foregroundStyle(.tertiary)
         }
         .padding()
         .frame(maxWidth: .infinity)
@@ -59,11 +69,15 @@ struct ProductSearchCard: View {
             y: 2
         )
     }
+    
+    
 }
 
-#Preview("Produktkort") {
-    ProductSearchCard(
-        product: PreviewData.pepsi
+#Preview("Favoritkort") {
+    FavoriteCard(
+        item: FavoriteItem(
+            product: PreviewData.pepsi
+        )
     )
     .padding()
 }
